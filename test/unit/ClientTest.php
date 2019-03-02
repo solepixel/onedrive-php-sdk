@@ -30,11 +30,9 @@ class ClientTest extends TestCase
     const DRIVE_ID      = '0000000000000004';
     const DRIVE_ITEM_ID = '0123';
 
-    /**
-     * @expectedException \Exception
-     */
     public function testConstructorWithNullGraphShouldThrowException()
     {
+        $this->expectException(\Exception::class);
         $graph      = $this->mockGraph();
         $httpClient = $this->createMock(ClientInterface::class);
 
@@ -294,7 +292,7 @@ class ClientTest extends TestCase
         );
 
         $actual = $sut->getDrives();
-        $this->assertInternalType('array', $actual);
+        $this->assertIsArray($actual);
         $this->assertCount(1, $actual);
 
         foreach ($actual as $drive) {

@@ -23,7 +23,7 @@ class ClientTest extends TestCase
 
     private static $root;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 
@@ -175,7 +175,7 @@ class ClientTest extends TestCase
     public function testGetShared()
     {
         $driveItems = self::$client->getShared();
-        $this->assertInternalType('array', $driveItems);
+        $this->assertIsArray($driveItems);
 
         foreach ($driveItems as $driveItem) {
             $this->assertDriveItemProxy($driveItem);
@@ -185,7 +185,7 @@ class ClientTest extends TestCase
     public function testGetRecent()
     {
         $driveItems = self::$client->getRecent();
-        $this->assertInternalType('array', $driveItems);
+        $this->assertIsArray($driveItems);
 
         foreach ($driveItems as $driveItem) {
             $this->assertDriveItemProxy($driveItem);

@@ -17,7 +17,7 @@ class QuotaProxyTest extends TestCase
         $quota->method('getDeleted')->willReturn(1234);
 
         $sut = new QuotaProxy($graph, $quota);
-        $this->assertInternalType('int', $sut->deleted);
+        $this->assertIsInt($sut->deleted);
         $this->assertSame(1234, $sut->deleted);
     }
 
@@ -29,7 +29,7 @@ class QuotaProxyTest extends TestCase
         $quota->method('getRemaining')->willReturn(1234);
 
         $sut = new QuotaProxy($graph, $quota);
-        $this->assertInternalType('int', $sut->remaining);
+        $this->assertIsInt($sut->remaining);
         $this->assertSame(1234, $sut->remaining);
     }
 
@@ -41,7 +41,7 @@ class QuotaProxyTest extends TestCase
         $quota->method('getState')->willReturn(1234);
 
         $sut = new QuotaProxy($graph, $quota);
-        $this->assertInternalType('int', $sut->state);
+        $this->assertIsInt($sut->state);
         $this->assertSame(1234, $sut->state);
     }
 
@@ -53,7 +53,7 @@ class QuotaProxyTest extends TestCase
         $quota->method('getTotal')->willReturn(1234);
 
         $sut = new QuotaProxy($graph, $quota);
-        $this->assertInternalType('int', $sut->total);
+        $this->assertIsInt($sut->total);
         $this->assertSame(1234, $sut->total);
     }
 
@@ -65,7 +65,7 @@ class QuotaProxyTest extends TestCase
         $quota->method('getUsed')->willReturn(1234);
 
         $sut = new QuotaProxy($graph, $quota);
-        $this->assertInternalType('int', $sut->used);
+        $this->assertIsInt($sut->used);
         $this->assertSame(1234, $sut->used);
     }
 }

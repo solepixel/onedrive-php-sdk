@@ -18,7 +18,7 @@ class ItemReferenceProxyTest extends TestCase
         $itemReference->method('getId')->willReturn('1234');
 
         $sut = new ItemReferenceProxy($graph, $itemReference);
-        $this->assertInternalType('string', $sut->id);
+        $this->assertIsString($sut->id);
         $this->assertSame('1234', $sut->id);
     }
 
@@ -30,7 +30,7 @@ class ItemReferenceProxyTest extends TestCase
         $itemReference->method('getDriveId')->willReturn('1234');
 
         $sut = new ItemReferenceProxy($graph, $itemReference);
-        $this->assertInternalType('string', $sut->driveId);
+        $this->assertIsString($sut->driveId);
         $this->assertSame('1234', $sut->driveId);
     }
 
@@ -42,7 +42,7 @@ class ItemReferenceProxyTest extends TestCase
         $itemReference->method('getDriveType')->willReturn(DriveType::PERSONAL);
 
         $sut = new ItemReferenceProxy($graph, $itemReference);
-        $this->assertInternalType('string', $sut->driveType);
+        $this->assertIsString($sut->driveType);
         $this->assertSame(DriveType::PERSONAL, $sut->driveType);
     }
 
@@ -54,7 +54,7 @@ class ItemReferenceProxyTest extends TestCase
         $itemReference->method('getPath')->willReturn('/path');
 
         $sut = new ItemReferenceProxy($graph, $itemReference);
-        $this->assertInternalType('string', $sut->path);
+        $this->assertIsString($sut->path);
         $this->assertSame('/path', $sut->path);
     }
 }
