@@ -120,7 +120,7 @@ class ClientTest extends TestCase
     /**
      * @depends testGetRoot
      */
-    public function testGetDriveItemByIdWhenNotGivenDriveId()
+    public function testGetDriveItemById()
     {
         self::withOnedriveSandbox(self::$root, __METHOD__, function (DriveItemProxy $sandbox) {
             $driveItem = $sandbox->upload(
@@ -130,27 +130,6 @@ class ClientTest extends TestCase
             );
 
             $driveItem = self::$client->getDriveItemById($driveItem->id);
-            $this->assertDriveItemProxy($driveItem);
-        });
-    }
-
-    /**
-     * @depends testGetRoot
-     */
-    public function testGetDriveItemByIdWhenGivenDriveId()
-    {
-        self::withOnedriveSandbox(self::$root, __METHOD__, function (DriveItemProxy $sandbox) {
-            $driveItem = $sandbox->upload(
-                'Test file',
-                'Test content',
-                ['contentType' => 'text/plain']
-            );
-
-            $driveItem = self::$client->getDriveItemById(
-                $driveItem->parentReference->driveId,
-                $driveItem->id
-            );
-
             $this->assertDriveItemProxy($driveItem);
         });
     }

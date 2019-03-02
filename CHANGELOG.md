@@ -60,6 +60,7 @@ Change log
 ### Removed
 
 - Support for PHP 5.6, PHP 7.0, and PHP 7.1.
+- V1 API.
 
 [2.3.0] - 2019-08-18
 --------------------
