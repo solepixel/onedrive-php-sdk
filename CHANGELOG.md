@@ -57,6 +57,10 @@ Change log
 - `Krizalys\Onedrive\Proxy\DriveItemProxy::upload()`: The `'Content-Type'`
   option is now deprecated & reports a notice. Use `'contentType'` instead.
 
+### Removed
+
+- Support for PHP 5.6, PHP 7.0, and PHP 7.1.
+
 [2.3.0] - 2019-08-18
 --------------------
 
