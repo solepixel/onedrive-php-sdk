@@ -6,7 +6,7 @@ php:
 
 before_install: composer install
 
-script: composer test:unit:coverage
+script: composer test:unit:coverage:parallel
 
 after_success:
   - 'curl --silent https://codecov.io/bash | bash'

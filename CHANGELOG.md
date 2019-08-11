@@ -47,6 +47,10 @@ Change log
   `Krizalys\Onedrive\Constant\QuotaStatus` and
   `Krizalys\Onedrive\Constant\SpecialFolderName`.
 
+### Added
+
+- Paratest to run test suites in parallel.
+
 ### Changed
 
 - Modularized the functional test suite.

@@ -236,7 +236,7 @@ To run the functional test suite:
    4444):
 
    ```sh
-   vendor/bin/phpunit --configuration test/functional
+   vendor/bin/paratest --functional --configuration=test/functional/phpunit.xml.dist
    ```
 
 4. Repeat step 3 as needed.
