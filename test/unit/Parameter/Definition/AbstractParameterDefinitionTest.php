@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Test\Unit\Krizalys\Onedrive\Parameter\Definition;
 
 use Krizalys\Onedrive\Parameter\Injector\InjectorInterface;

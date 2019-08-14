@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'CLIENT_ID' => '<CLIENT ID>',
     'SECRET'    => '<SECRET>',

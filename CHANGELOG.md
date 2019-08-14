@@ -56,6 +56,7 @@ Change log
 - Modularized the functional test suite.
 - Improved usefulness of some assertions in unit tests.
 - Upgraded to PHPUnit 8.
+- Using strict typing for all PHP files.
 
 ### Deprecated
 

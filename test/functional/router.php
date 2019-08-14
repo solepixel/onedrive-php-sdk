@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function route()
 {
     $uri        = $_SERVER['REQUEST_URI'];
