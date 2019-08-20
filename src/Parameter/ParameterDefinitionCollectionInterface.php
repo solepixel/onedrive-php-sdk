@@ -15,24 +15,22 @@
 namespace Krizalys\Onedrive\Parameter;
 
 /**
- * An interface defining the contract for a parameter builder.
+ * An interface defining the contract for a parameter definition collection.
  *
- * @since 2.3.0
+ * @since 2.5.0
  */
-interface ParameterBuilderInterface
+interface ParameterDefinitionCollectionInterface
 {
     /**
-     * Builds parameters from this instance.
+     * Builds options.
      *
-     * @param \Krizalys\Onedrive\Parameter\Definition\ParameterDefinitionInterface[string] $parameterDefinitions
-     *        The parameter definitions.
      * @param mixed[string] $options
      *        The options.
      *
-     * @return string[string]
-     *         The parameters.
+     * @return mixed[string]
+     *         The options.
      *
-     * @since 2.3.0
+     * @since 2.5.0
      */
-    public function build(array $parameterDefinitions, array $options);
+    public function buildOptions(array $options);
 }

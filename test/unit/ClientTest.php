@@ -7,9 +7,9 @@ use GuzzleHttp\ClientInterface;
 use Krizalys\Onedrive\Client;
 use Krizalys\Onedrive\Constant\AccessTokenStatus;
 use Krizalys\Onedrive\Constant\SpecialFolderName;
-use Krizalys\Onedrive\Parameter\DriveItemParameterDirectorInterface;
 use Krizalys\Onedrive\Proxy\DriveItemProxy;
 use Krizalys\Onedrive\Proxy\DriveProxy;
+use Krizalys\Onedrive\ServiceDefinitionInterface;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Http\GraphRequest;
 use Microsoft\Graph\Http\GraphResponse;
@@ -38,9 +38,9 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraph();
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
-        new Client(null, $graph, $httpClient, $driveItemParameterDirector, []);
+        new Client(null, $graph, $httpClient, $serviceDefinition, []);
     }
 
     public function testGetLogInUrlShouldReturnExpectedValue()
@@ -48,13 +48,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraph();
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -283,13 +283,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithCollectionResponse([$drive]);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -309,13 +309,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($drive);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -330,13 +330,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($drive);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -351,13 +351,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($drive);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -372,13 +372,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($drive);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -393,13 +393,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($drive);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -414,13 +414,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($item);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -435,13 +435,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($item);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -456,13 +456,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithResponse($item);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -477,13 +477,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithCollectionResponse([$item]);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -501,13 +501,13 @@ class ClientTest extends TestCase
         $graph      = $this->mockGraphWithCollectionResponse([$item]);
         $httpClient = $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $sut = new Client(
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             []
         );
 
@@ -525,7 +525,7 @@ class ClientTest extends TestCase
             $options['httpClient']
             : $this->createMock(ClientInterface::class);
 
-        $driveItemParameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
+        $serviceDefinition = $this->createMock(ServiceDefinitionInterface::class);
 
         $options = array_key_exists('options', $options) ?
             $options['options']
@@ -535,7 +535,7 @@ class ClientTest extends TestCase
             self::CLIENT_ID,
             $graph,
             $httpClient,
-            $driveItemParameterDirector,
+            $serviceDefinition,
             $options
         );
     }

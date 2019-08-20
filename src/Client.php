@@ -17,8 +17,7 @@ namespace Krizalys\Onedrive;
 use GuzzleHttp\ClientInterface;
 use Krizalys\Onedrive\Constant\AccessTokenStatus;
 use Krizalys\Onedrive\Constant\SpecialFolderName;
-use Krizalys\Onedrive\Parameter\DriveItemParameterDirector;
-use Krizalys\Onedrive\Parameter\DriveItemParameterDirectorInterface;
+use Krizalys\Onedrive\Definition\ServiceDefinitionInterface;
 use Krizalys\Onedrive\Proxy\DriveItemProxy;
 use Krizalys\Onedrive\Proxy\DriveProxy;
 use Microsoft\Graph\Graph;
@@ -91,10 +90,10 @@ class Client
     private $httpClient;
 
     /**
-     * @var \Krizalys\Onedrive\Parameter\DriveItemParameterDirectorInterface
-     *      The drive item parameter director.
+     * @var \Krizalys\Onedrive\Definition\ServiceDefinitionInterface
+     *      The service definition.
      */
-    private $driveItemParameterDirector;
+    private $serviceDefinition;
 
     /**
      * @var object
@@ -111,12 +110,12 @@ class Client
      *        The Microsoft Graph.
      * @param \GuzzleHttp\ClientInterface $httpClient
      *        The Guzzle HTTP client.
-     * @param mixed $driveItemParameterDirector
-     *        The drive item parameter director. Not passing a
-     *        \Krizalys\Onedrive\Parameter\DriveItemParameterDirectorInterface
-     *        instance via this parameter is deprecated and will be disallowed
-     *        in version 3. Passing a logger via this parameter is deprecated
-     *        and will be disallowed in version 3.
+     * @param mixed $serviceDefinition
+     *        The service definition. Not passing a
+     *        \Krizalys\Onedrive\Definition\ServiceDefinitionInterface via this
+     *        parameter is deprecated and will be disallowed in version 3.
+     *        Passing a logger via this parameter is deprecated and will be
+     *        disallowed in version 3.
      * @param mixed[string] $options
      *        The options to use while creating this object. Supported options:
      *          - `'state'` *(object)*: the OneDrive client state, as returned
@@ -131,52 +130,54 @@ class Client
         $clientId,
         Graph $graph,
         ClientInterface $httpClient,
-        $driveItemParameterDirector = null,
+        $serviceDefinition = null,
         array $options = []
     ) {
         switch (func_num_args()) {
             case 3:
-                $driveItemParameterDirector = null;
+                $serviceDefinition = null;
                 break;
 
             case 4:
-                if (is_array($driveItemParameterDirector)) {
-                    $options                    = $driveItemParameterDirector;
-                    $logger                     = null;
-                    $driveItemParameterDirector = null;
-                } elseif ($driveItemParameterDirector instanceof DriveItemParameterDirectorInterface) {
+                if (is_array($serviceDefinition)) {
+                    $options           = $serviceDefinition;
+                    $logger            = null;
+                    $serviceDefinition = null;
+                } elseif ($serviceDefinition instanceof ServiceDefinitionInterface) {
                     $logger = null;
                 } else {
-                    $logger                     = $driveItemParameterDirector;
-                    $driveItemParameterDirector = null;
+                    $logger            = $serviceDefinition;
+                    $serviceDefinition = null;
                 }
 
                 break;
 
             case 5:
-                if ($driveItemParameterDirector instanceof DriveItemParameterDirectorInterface) {
+                if ($serviceDefinition instanceof ServiceDefinitionInterface) {
                     $logger = null;
                 } else {
-                    $logger                     = $driveItemParameterDirector;
-                    $driveItemParameterDirector = null;
+                    $logger            = $serviceDefinition;
+                    $serviceDefinition = null;
                 }
 
                 break;
         }
 
-        if ($driveItemParameterDirector === null) {
-            $message = 'Not passing a \Krizalys\Onedrive\Parameter\DriveItemParameterDirectorInterface '
-                . ' instance via $driveItemParameterDirector is deprecated and will be disallowed'
-                . ' in version 3; pass this parameter';
+        if ($serviceDefinition === null) {
+            $message = 'Not passing a'
+                . ' \Krizalys\Onedrive\ServiceDefinitionInterface instance via'
+                . ' $serviceDefinition is deprecated and will be'
+                . ' disallowed in version 3; pass this parameter';
 
             @trigger_error($message, E_USER_DEPRECATED);
 
-            $driveItemParameterDirector = new DriveItemParameterDirector();
+            $serviceDefinition = Onedrive::buildServiceDefinition();
         }
 
         if ($logger !== null) {
-            $message = 'Passing a logger via $driveItemParameterDirector is deprecated and will be disallowed in version 3;'
-                . ' omit this parameter, or pass null or options instead';
+            $message = 'Passing a logger via $serviceDefinition is deprecated'
+                . ' and will be disallowed in version 3; omit this parameter,'
+                . ' or pass null or options instead';
 
             @trigger_error($message, E_USER_DEPRECATED);
         }
@@ -185,10 +186,10 @@ class Client
             throw new \Exception('The client ID must be set');
         }
 
-        $this->clientId                   = $clientId;
-        $this->graph                      = $graph;
-        $this->httpClient                 = $httpClient;
-        $this->driveItemParameterDirector = $driveItemParameterDirector;
+        $this->clientId          = $clientId;
+        $this->graph             = $graph;
+        $this->httpClient        = $httpClient;
+        $this->serviceDefinition = $serviceDefinition;
 
         $this->_state = array_key_exists('state', $options)
             ? $options['state'] : (object) [
@@ -462,7 +463,7 @@ class Client
             return new DriveProxy(
                 $this->graph,
                 $drive,
-                $this->driveItemParameterDirector
+                $this->serviceDefinition->getResourceDefinition('driveItem')
             );
         }, $drives);
     }
@@ -501,7 +502,7 @@ class Client
         return new DriveProxy(
             $this->graph,
             $drive,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -542,7 +543,7 @@ class Client
         return new DriveProxy(
             $this->graph,
             $drive,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -584,7 +585,7 @@ class Client
         return new DriveProxy(
             $this->graph,
             $drive,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -626,7 +627,7 @@ class Client
         return new DriveProxy(
             $this->graph,
             $drive,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -668,7 +669,7 @@ class Client
         return new DriveProxy(
             $this->graph,
             $drive,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -735,7 +736,7 @@ class Client
         return new DriveItemProxy(
             $this->graph,
             $driveItem,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -784,7 +785,7 @@ class Client
         return new DriveItemProxy(
             $this->graph,
             $driveItem,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -823,7 +824,7 @@ class Client
         return new DriveItemProxy(
             $this->graph,
             $driveItem,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -868,7 +869,7 @@ class Client
         return new DriveItemProxy(
             $this->graph,
             $driveItem,
-            $this->driveItemParameterDirector
+            $this->serviceDefinition->getResourceDefinition('driveItem')
         );
     }
 
@@ -911,7 +912,7 @@ class Client
             return new DriveItemProxy(
                 $this->graph,
                 $driveItem,
-                $this->driveItemParameterDirector
+                $this->serviceDefinition->getResourceDefinition('driveItem')
             );
         }, $driveItems);
     }
@@ -955,7 +956,7 @@ class Client
             return new DriveItemProxy(
                 $this->graph,
                 $driveItem,
-                $this->driveItemParameterDirector
+                $this->serviceDefinition->getResourceDefinition('driveItem')
             );
         }, $driveItems);
     }

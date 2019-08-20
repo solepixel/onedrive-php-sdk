@@ -32,19 +32,17 @@ class ParameterBuilderTest extends TestCase
 
         $sut = new ParameterBuilder();
 
-        $sut->setParameterDefinitions([
-            '1' => $parameterDefinition1,
-            '2' => $parameterDefinition2,
-            '3' => $parameterDefinition2,
-        ]);
-
-        $sut->setOptions([
-            '1' => 1,
-            '2' => 2,
-            '4' => 4,
-        ]);
-
-        $actual = $sut->build();
+        $actual = $sut->build(
+            [
+                '1' => $parameterDefinition1,
+                '2' => $parameterDefinition2,
+                '3' => $parameterDefinition2,
+            ], [
+                '1' => 1,
+                '2' => 2,
+                '4' => 4,
+            ]
+        );
 
         $this->assertSame([
             'Serialized 1' => 'Serialized 1',
