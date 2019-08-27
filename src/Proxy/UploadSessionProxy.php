@@ -72,12 +72,6 @@ class UploadSessionProxy extends EntityProxy
 
     /**
      * @var int
-     *      The type.
-     */
-    private $type;
-
-    /**
-     * @var int
      *      The chunk size, in bytes.
      */
     private $rangeSize;
@@ -95,7 +89,6 @@ class UploadSessionProxy extends EntityProxy
      *        The drive item parameter director.
      * @param mixed[string] $options
      *        The options. Supported options:
-     *          - `'type'` *(string)*: the MIME type of the uploaded file ;
      *          - `'range_size'` *(int)*: the range size, in bytes.
      *
      * @since 2.1.0
@@ -110,10 +103,6 @@ class UploadSessionProxy extends EntityProxy
         parent::__construct($graph, $uploadSession);
         $this->content                    = $content;
         $this->driveItemParameterDirector = $driveItemParameterDirector;
-
-        $this->type = array_key_exists('type', $options) ?
-            $options['type']
-            : null;
 
         $this->rangeSize = array_key_exists('range_size', $options) ?
             $options['range_size']
@@ -195,10 +184,6 @@ class UploadSessionProxy extends EntityProxy
                 'Content-Length' => $rangeSize,
                 'Content-Range'  => "bytes $rangeFirst-$rangeLast/$size",
             ];
-
-            if ($this->type !== null) {
-                $headers['Content-Type'] = $this->type;
-            }
 
             $response = $this
                 ->graph

@@ -214,6 +214,16 @@ class DriveItemParameterDirector implements DriveItemParameterDirectorInterface
                     new HierarchicalInjector(['item', 'description']),
                     new ScalarSerializer()
                 ),
+                'type' => new BodyParameterDefinition(
+                    new HierarchicalInjector(['item', 'file', 'mimeType']),
+                    new ScalarSerializer()
+                    //function ($contentType) {
+                        //return new ArraySerializer([
+                        //    '@odata.type' => 'microsoft.graph.file',
+                        //    'mimeType'    => $contentType,
+                        //]);
+                    //}
+                ),
             ];
         }
 

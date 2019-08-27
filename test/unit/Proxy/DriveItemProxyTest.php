@@ -550,7 +550,7 @@ class DriveItemProxyTest extends TestCase
         $graph = $this->mockGraph($response);
 
         $parameterDirector = $this->createMock(DriveItemParameterDirectorInterface::class);
-        $parameterDirector->method('buildPostChildrenBodyParameters')->willReturn([]);
+        $parameterDirector->method('buildPostCreateUploadSessionBodyParameters')->willReturn([]);
 
         $sut    = new DriveItemProxy($graph, $item, $parameterDirector);
         $actual = $sut->startUpload('Irrelevant', 'Test content', []);

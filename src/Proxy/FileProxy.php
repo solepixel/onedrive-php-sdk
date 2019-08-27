@@ -20,6 +20,9 @@ use Microsoft\Graph\Model\File;
 /**
  * A proxy to a \Microsoft\Graph\Model\File instance.
  *
+ * @property-read string $mimeType
+ *                The MIME type.
+ *
  * @since 2.0.0
  *
  * @api
@@ -41,5 +44,32 @@ class FileProxy extends EntityProxy
     public function __construct(Graph $graph, File $file)
     {
         parent::__construct($graph, $file);
+    }
+
+    /**
+     * Getter.
+     *
+     * @param string $name
+     *        The name.
+     *
+     * @return mixed
+     *         The value.
+     *
+     * @since 2.4.0
+     */
+    public function __get($name)
+    {
+        $file = $this->entity;
+
+        /**
+         * @todo Support all properties.
+         */
+        switch ($name) {
+            case 'mimeType':
+                return $file->getMimeType();
+
+            default:
+                return parent::__get($name);
+        }
     }
 }
