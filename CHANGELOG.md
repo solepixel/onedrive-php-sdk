@@ -10,6 +10,10 @@ Change log
   `Krizalys\Onedrive\Proxy\DriveItemProxy::invite()`.
 - `Krizalys\Onedrive\Proxy\HashesProxy`.
 
+### Changed
+
+- Updated `Krizalys\Onedrive\Proxy\FileProxy`.
+
 [2.4.2] - 2019-09-16
 --------------------
 
