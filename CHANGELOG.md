@@ -7,6 +7,7 @@ Change log
 ### Added
 
 - Composer scripts.
+- Support for PHP 7.4.
 
 ### Changed
 
