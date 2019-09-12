@@ -191,13 +191,9 @@ trait AssertionsTrait
             )
         );
 
-        $this->assertThat(
-            $item->package,
-            $this->logicalOr(
-                $this->isNull(),
-                $this->isInstanceOf(PackageProxy::class)
-            )
-        );
+        if ($item->package !== null) {
+            $this->assertPackageProxy($item->package);
+        }
 
         $this->assertThat(
             $item->photo,
@@ -565,6 +561,17 @@ trait AssertionsTrait
                 $this->isType('string')
             )
         );
+    }
+
+    private function assertPackageProxy($package)
+    {
+        $this->assertEntityProxy($package);
+        $this->assertInstanceOf(PackageProxy::class, $package);
+        $this->assertInternalType('string', $package->type);
+
+        $this->assertContains($package->type, [
+            'oneNote',
+        ]);
     }
 
     private function assertPermissionProxy($permission)
