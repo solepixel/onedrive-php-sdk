@@ -60,6 +60,12 @@ class DriveItemParameterDirector implements DriveItemParameterDirectorInterface
     private static $postCreateUploadSessionBodyParameterDefinitions;
 
     /**
+     * @var ParameterDefinitionInterface[string]
+     *      The post invite body parameter definitions.
+     */
+    private static $postInviteBodyParameterDefinitions;
+
+    /**
      * {@inheritDoc}
      *
      * @param mixed[string] $options
@@ -221,6 +227,44 @@ class DriveItemParameterDirector implements DriveItemParameterDirectorInterface
 
         return $builder
             ->setParameterDefinitions(self::$postCreateUploadSessionBodyParameterDefinitions)
+            ->setOptions($options)
+            ->build();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed[string] $options
+     *        The options.
+     *
+     * @return string[string]
+     *         The parameters.
+     *
+     * @since 2.5.0
+     */
+    public function buildPostInviteBodyParameters(array $options)
+    {
+        if (self::$postInviteBodyParameterDefinitions === null) {
+            self::$postInviteBodyParameterDefinitions = [
+                'message' => new BodyParameterDefinition(
+                    new HierarchicalInjector(['message']),
+                    new ScalarSerializer()
+                ),
+                'requireSignIn' => new BodyParameterDefinition(
+                    new HierarchicalInjector(['requireSignIn']),
+                    new ScalarSerializer()
+                ),
+                'sendInvitation' => new BodyParameterDefinition(
+                    new HierarchicalInjector(['sendInvitation']),
+                    new ScalarSerializer()
+                ),
+            ];
+        }
+
+        $builder = new ParameterBuilder();
+
+        return $builder
+            ->setParameterDefinitions(self::$postInviteBodyParameterDefinitions)
             ->setOptions($options)
             ->build();
     }

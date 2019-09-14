@@ -1,6 +1,14 @@
 Change log
 ==========
 
+[Unreleased][unreleased]
+------------------------
+
+### Added
+
+- Support for sending invites: see
+  `Krizalys\Onedrive\Proxy\DriveItemProxy::invite()`.
+
 [2.4.2] - 2019-09-16
 --------------------
 
